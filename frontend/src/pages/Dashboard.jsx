@@ -7,6 +7,7 @@ import StatsSkeleton from "../components/StatsSkeleton";
 import SectionContainer from "../components/SectionContainer";
 import InfoCard from "../components/InfoCard";
 import WaveBackground from "../components/WaveBackground";
+import VisitAdvisor from "../components/VisitAdvisor";
 
 import "./Dashboard.css";
 
@@ -43,6 +44,8 @@ function Dashboard() {
         ) : (
           <StatsGrid stats={statsData} />
         )}
+
+        <VisitAdvisor />
 
         <SectionContainer
           title="Queue Insights"
