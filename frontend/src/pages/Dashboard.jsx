@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
+
 import Header from "../components/Header";
 import HeroBlock from "../components/HeroBlock";
 import StatsGrid from "../components/StatsGrid";
+import StatsSkeleton from "../components/StatsSkeleton";
 import SectionContainer from "../components/SectionContainer";
 import InfoCard from "../components/InfoCard";
 import WaveBackground from "../components/WaveBackground";
@@ -8,13 +11,26 @@ import WaveBackground from "../components/WaveBackground";
 import "./Dashboard.css";
 
 function Dashboard() {
+  // ✅ 1. Loading state (TOP LEVEL)
+  const [loading, setLoading] = useState(true);
+
+  // ✅ 2. Dashboard data (PURE object)
   const statsData = {
     queues: 4,
     timeSlots: 12,
     shops: 8,
   };
 
+  // ✅ 3. Simulated API delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
 
+    return () => clearTimeout(timer);
+  }, []);
+
+  // ✅ 4. Render
   return (
     <>
       <WaveBackground />
@@ -22,7 +38,11 @@ function Dashboard() {
       <HeroBlock />
 
       <div className="dashboard-container">
-        <StatsGrid stats={statsData} />
+        {loading ? (
+          <StatsSkeleton />
+        ) : (
+          <StatsGrid stats={statsData} />
+        )}
 
         <SectionContainer
           title="Queue Insights"
